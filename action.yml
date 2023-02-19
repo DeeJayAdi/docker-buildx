@@ -1,0 +1,27 @@
+name: Docker Buildx Action
+description: Simple docker buildx for multiplatforms
+inputs:
+  login:
+    description: Login to docker hub
+    required: false
+  token:
+    description: Token to docker hub
+    required: false
+  label:
+    description: The name of the image
+    required: true
+  tags:
+    description: Image tgas
+    default: latest
+    required: false
+  platforms:
+    description: Platforms
+    default: linux/amd64,linux/arm64
+    required: false
+  push:
+    description: Push image to docker hub reqgistry
+    default: "true"
+    required: false
+runs:
+  using: node16
+  main: ./src/index.js
