@@ -4,11 +4,11 @@
 
 ### login
 
-Login used for docker hub
+Login used for docker hub. Seted as repo secret.
 
 ### token
 
-Token generated on docker hub or password
+Token generated on docker hub or password. Seted as repo secret.
 
 ### label
 
@@ -25,3 +25,27 @@ Example: `linux/amd64,linux/arm64`
 ### push
 
 Boolean: `true` or `false`. To push the image to the registry
+
+# Example:
+
+```yaml
+name: Publish Docker image
+on: push
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Build docker image
+        uses: deejayadi/docker-buildx@v1
+        with:
+          login: ${{secrets.login}}
+          token: ${{secrets.token}}
+          label: deejayadi/docker-buildx
+          tags: latest
+          platforms: linux/amd64,linux/arm64
+          push: true
+```
